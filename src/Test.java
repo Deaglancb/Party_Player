@@ -5,10 +5,11 @@ public class Test {
     public static void main(String[] args) throws IOException, InterruptedException {
 
 //        HostGetter tmp = new HostGetter();
-//        tmp.getAudio("https://www.youtube.com/watch?v=UtF6Jej8yb4");
+//        tmp.getAudio("http://youtube.com/watch?v=cZI6EdnvH-8");
+        new HostPlayer();
 
-        HostParser tmp =  new HostParser();
-        String nearestURL = tmp.getNearestResult("lcd soundsystem");
-        System.out.println(nearestURL);
+//        HostParser tmp =  new HostParser();
+//        String nearestURL = tmp.getNearestResult("so long marianne");
+//        System.out.println(nearestURL);
     }
 }
