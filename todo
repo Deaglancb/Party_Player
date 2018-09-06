@@ -2,9 +2,9 @@ Host Client Player___ (Option 1)
 1. Play dynamic list of mp3s
 
 Host Client Sorter__ (Option 1)
-1. Sort playlist, based on meta info
+1. Sort playlist dynamically, based on meta info
 
-Host Client Catcher___ (Option 1)
+Host Client Catcher___ (Option 1)        **Major Changed could improve overhead here**
 1. Take in Youtube URL
 2. Stream using VLC, find stream URL from codec information (labeled location)   <-- alternatively figure out how to get this URL manually
 3. Download video
