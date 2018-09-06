@@ -13,7 +13,7 @@ public class HostGetter {
 
 
     private String URL;
-    private String title;
+    private String title = "";
     private String path;
 
 
@@ -30,7 +30,7 @@ public class HostGetter {
         this.URL = URL;
         getVideo();
         path = convertVideo();
-        return "";
+        return "path";
 
     }
 
@@ -65,14 +65,13 @@ public class HostGetter {
 
         //TODO remove, degbug
 
-        String line = "";
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(p.getErrorStream()));
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
-        }
-        in.close();
-//
+//        String line = "";
+//        BufferedReader in = new BufferedReader(
+//                new InputStreamReader(p.getErrorStream()));
+//        while ((line = in.readLine()) != null) {
+//            System.out.println(line);
+//        }
+//        in.close();
 
         System.out.println("Conversion compete");
         File toDelete = new File(goFrom);
