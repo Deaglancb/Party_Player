@@ -30,7 +30,7 @@ public class HostGetter {
         this.URL = URL;
         getVideo();
         path = convertVideo();
-        return "path";
+        return path;
 
     }
 
@@ -77,7 +77,8 @@ public class HostGetter {
         File toDelete = new File(goFrom);
         toDelete.delete();
 
-        return goTo;
+        path = goTo;
+        return "";
     }
 
     public String getVideo() throws IOException, InterruptedException {
