@@ -9,12 +9,12 @@ public class Test {
 
         HostPlayer anotherTmp = new HostPlayer();
 
-//        HostGetter tmp = new HostGetter();
-//        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=8xQOb51qZ-c");
+        HostGetter tmp = new HostGetter();
+        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=EJN-rzytlYI");
 
 
-        String songPath = "/home/deaglan/Desktop/tempMusic/So Long Marianne by Leonard Cohen.mp3";
-        anotherTmp.setMusic(songPath);
+//        String songPath = "/home/deaglan/Desktop/tempMusic/So Long Marianne by Leonard Cohen.mp3";
+//        anotherTmp.setMusic(songPath);
 
 //        HostParser tmp =  new HostParser();
 //        String nearestURL = tmp.getNearestResult("so long marianne");

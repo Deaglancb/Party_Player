@@ -20,8 +20,14 @@ public class HostParser {
     }
 
 
+    public static void parseSongInput(String userInput) {
+
+
+
+    }
+
     // in case user simply enters name of a song
-    public String getNearestResult(String songName) throws IOException, InterruptedException {
+    public static String getNearestResult(String songName) throws IOException, InterruptedException {
 
         String[] searchWords = songName.split(" ");
         String toAddToSearch = "";
