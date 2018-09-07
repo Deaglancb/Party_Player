@@ -1,0 +1,37 @@
+#:kivy 1.10.0
+
+<RootWidget>:
+
+    url_input: url_input
+    list_label: list_label
+
+    BoxLayout:
+
+        size: root.size
+        orientation: 'vertical'
+        spacing: 10
+        padding: 20
+
+        Label:
+            text: 'Add a song to the Party List!'
+            size_hint_y: .1
+
+        TextInput:
+            id: url_input
+            focus: True
+            hint_text: 'Enter a youtube URL'
+            multiline: False
+            size_hint: .6, .1
+            pos_hint: {'x': .2}
+
+        Button:
+            text: "Add to Party List"
+            size_hint: .2, .1
+            pos_hint: {'x': .4}
+            on_press: root.add_song()
+
+        Label:
+            id: list_label
+            size_hint_y: .7
+            text: "Songs Added:"
+

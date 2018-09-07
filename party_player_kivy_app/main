@@ -1,0 +1,24 @@
+
+import kivy
+from kivy.app import App
+from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+
+
+class RootWidget(Widget):
+
+    url_input = ObjectProperty(None)
+    list_label = ObjectProperty(None)
+
+    def add_song(self):
+        self.list_label.text += '\n'+self.url_input.text
+
+
+class PartyApp(App):
+
+    def build(self):
+        return RootWidget()
+
+
+if __name__ == '__main__':
+    PartyApp().run()
