@@ -4,7 +4,6 @@ import javazoom.jl.decoder.JavaLayerException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,10 +11,10 @@ import java.net.Socket;
 public class Test {
     public static void main(String[] args) throws IOException, InterruptedException, JavaLayerException {
 
+        /* -------------- Server Code  -------------------------*/
         ServerSocket serverSocket;
         Socket clientSocket = null;
         BufferedReader in = null;
-        PrintWriter out = null;
         String songPath = "";
 
         try {
@@ -25,7 +24,6 @@ public class Test {
             System.out.println("Connection received...");
             System.out.println(clientSocket.getRemoteSocketAddress());
 
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream())
             );
@@ -36,13 +34,15 @@ public class Test {
         }
 
         String inputLine = "", outputLine;
+        /* ---------------- End of Server Setup Code ---------------------- */
 
 
 
         HostPlayer anotherTmp = new HostPlayer();
-//
         HostGetter tmp = new HostGetter();
 
+
+        /* ------------------ Receiving from Client -------------- */
         try {
             inputLine = in.readLine();
             System.out.println("FROM SOCKET: " + inputLine);
@@ -50,6 +50,7 @@ public class Test {
         } catch (NullPointerException ex) {
             System.out.println(ex);
         }
+        /* ------------------- End of Receiving from Client ------- */
 
 
 //        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=-sUXMzkh-jI");
