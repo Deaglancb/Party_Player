@@ -5,7 +5,6 @@ from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 
 import socket
-import sys
 
 HOST = "localhost"
 PORT = 6666
@@ -28,7 +27,8 @@ class RootWidget(Widget):
 
     def add_song(self):
         self.list_label.text += '\n'+self.url_input.text
-        binary = self.url_input.text.encode()
+        msg = self.url_input.text + '\n'
+        binary = msg.encode()
         try:
             self.client_socket.send(binary)
         except socket.error as e:

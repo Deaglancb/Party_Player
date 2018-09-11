@@ -9,7 +9,7 @@ public class HostGetter {
 
 
     private String URL;
-    private String title = "ITS A LONG WAY TO THE TOP (IF YOU WANNA ROCK N ROLL) - AC DC";
+    private String title = "";
     private String path;
 
 
@@ -19,7 +19,7 @@ public class HostGetter {
             new File(path + "/tempMusic").mkdir();
 
         path = path + "/tempMusic";
-    };
+    }
 
 
     public String getAudio(String URL) throws IOException, InterruptedException {
