@@ -5,15 +5,11 @@ import java.io.InputStreamReader;
 
 
 //TODO check if video is already downloaded or convertd...
-/*
- * Deaglan Connolly Bree, 15511107
- * deaglan.connolly-bree@ucdconnect.ie
- */
 public class HostGetter {
 
 
     private String URL;
-    private String title = "";
+    private String title = "ITS A LONG WAY TO THE TOP (IF YOU WANNA ROCK N ROLL) - AC DC";
     private String path;
 
 
@@ -63,15 +59,15 @@ public class HostGetter {
 
         p.waitFor();
 
-        //TODO remove, degbug
+        //TODO remove, debug
 
-//        String line = "";
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(p.getErrorStream()));
-//        while ((line = in.readLine()) != null) {
-//            System.out.println(line);
-//        }
-//        in.close();
+        String line = "";
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(p.getErrorStream()));
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+        }
+        in.close();
 
         System.out.println("Conversion compete");
         File toDelete = new File(goFrom);
@@ -86,7 +82,7 @@ public class HostGetter {
 
 
         String cmd =
-                "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " " + URL + " " + path;
+                "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " " + URL + " " + path;
 
 
         Process p = Runtime.getRuntime().exec(cmd);

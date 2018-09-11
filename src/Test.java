@@ -8,12 +8,12 @@ public class Test {
 
 
         HostPlayer anotherTmp = new HostPlayer();
-
+//
         HostGetter tmp = new HostGetter();
-        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=EJN-rzytlYI");
+        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=-sUXMzkh-jI");
 
 
-//        String songPath = "/home/deaglan/Desktop/tempMusic/So Long Marianne by Leonard Cohen.mp3";
+//        String songPath = "/home/user/Desktop/tempMusic/ITS A LONG WAY TO THE TOP (IF YOU WANNA ROCK N ROLL) - AC DC.mp3";
 //        anotherTmp.setMusic(songPath);
 
 //        HostParser tmp =  new HostParser();
