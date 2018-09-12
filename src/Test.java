@@ -12,7 +12,7 @@ public class Test {
     public static void main(String[] args) throws IOException, InterruptedException, JavaLayerException {
 
         /* -------------- Server Code  -------------------------*/
-        ServerSocket serverSocket;
+        ServerSocket serverSocket = null;
         Socket clientSocket = null;
         BufferedReader in = null;
         String songPath = "";
@@ -44,12 +44,22 @@ public class Test {
 
         /* ------------------ Receiving from Client -------------- */
         try {
-            inputLine = in.readLine();
-            System.out.println("FROM SOCKET: " + inputLine);
-            System.out.println("Loop broke...");
+
+            while (true) {
+                inputLine = in.readLine();
+                System.out.println("FROM SOCKET: " + inputLine);
+                if (inputLine.equals("quit") || inputLine.equals("")) {
+                    break;
+                }
+            }
+            
+            System.out.println("Connection closed");
+            serverSocket.close();
+
         } catch (NullPointerException ex) {
             System.out.println(ex);
         }
+
         /* ------------------- End of Receiving from Client ------- */
 
 

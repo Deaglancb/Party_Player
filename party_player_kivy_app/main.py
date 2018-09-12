@@ -6,7 +6,17 @@ from kivy.properties import ObjectProperty
 
 import socket
 
-HOST = "localhost"
+
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # udp
+    s.connect(("8.8.8.8", 80))  # connects to Google
+    ip = s.getsockname()[0]
+    print("IP ", ip)
+    s.close()
+    return ip
+
+
+HOST = get_local_ip()
 PORT = 6666
 
 
