@@ -11,10 +11,17 @@ public class HostGetter {
     private String URL;
     private String title = "";
     private String path;
+    private String homeDir;
+    public String realTitle;
+    // PYTHON SCRIPT LOCATION
+    private String cmd =
+                            "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
+//                            "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " ";
 
 
     public HostGetter() {
-        path = System.getProperty("user.home") + "/Desktop";
+        homeDir = System.getProperty("user.home");
+        path = homeDir + "/Desktop";
         if (!(new File(path + "/tempMusic").exists()))
             new File(path + "/tempMusic").mkdir();
 
@@ -34,18 +41,29 @@ public class HostGetter {
 
         char lastChar = title.toCharArray()[title.length()-1];
         String tmpPath;
-        if (lastChar < 'A' || lastChar > 'Z' && lastChar < 'a' || lastChar > 'z')
-            tmpPath = path + "/" + title.substring(0,title.length()-1);
-        else
-            tmpPath = path + "/" + title;
+
+        String tmpTitle = "";
+
+        for(int i = 0; i < title.length(); i++) {
+            lastChar = title.charAt(i);
+            if (lastChar == '"' || lastChar == '\'' )
+                title = title.substring(0, i) + title.substring(i+1, title.length());
+        }
+
+
+
+        tmpPath = path + "/" + title;
+        System.out.println( "           " + title);
 
 
 
         String correctedPath = tmpPath;
 
 
+
+
         String goFrom =  correctedPath + ".mp4";
-        String goTo = correctedPath + ".mp3";
+        String goTo = path + "/" + realTitle + ".mp3";
 
 
         System.out.println(goFrom);
@@ -81,9 +99,7 @@ public class HostGetter {
 
 
 
-        String cmd =
-                "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " " + URL + " " + path;
-
+        String cmd = this.cmd + URL + " " + path;
 
         Process p = Runtime.getRuntime().exec(cmd);
 
@@ -97,6 +113,7 @@ public class HostGetter {
         }
 
         System.out.println(title);
+        realTitle = title;
         System.out.println("Download Complete ");
 
 
