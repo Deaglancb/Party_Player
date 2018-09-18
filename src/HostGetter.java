@@ -1,7 +1,8 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 //TODO check if video is already downloaded or convertd...
@@ -12,27 +13,62 @@ public class HostGetter {
     private String title = "";
     private String path;
     private String homeDir;
+    private String indexDir;
     public String realTitle;
+    protected String indexFile = "";
+    //TODO consider moving this outa here!
+    protected static HashSet<String> downloadedSongs;
+
     // PYTHON SCRIPT LOCATION
     private String cmd =
                             "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
 //                            "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " ";
 
 
-    public HostGetter() {
-        homeDir = System.getProperty("user.home");
-        path = homeDir + "/Desktop";
-        if (!(new File(path + "/tempMusic").exists()))
-            new File(path + "/tempMusic").mkdir();
+    public HostGetter() throws IOException, ClassNotFoundException {
 
-        path = path + "/tempMusic";
+        // going to store music in the folder on user's desktop, if folder doesn't exist, create it
+        homeDir = System.getProperty("user.home");
+        path = homeDir + "/Desktop/tempMusic";
+
+
+        indexDir = path + "/songIndex";
+
+        if(!(new File(indexDir).exists())) {
+            new File(indexDir).createNewFile();
+            //TODO In case user deletes index file, check all other files in the directoy for mp3s and add them again
+            downloadedSongs = new HashSet<>();
+
+            FileOutputStream fos = new FileOutputStream(indexDir);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(downloadedSongs);
+            oos.close();
+
+
+        } else {
+            FileInputStream fis = new FileInputStream(indexDir);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            downloadedSongs = (HashSet<String>) ois.readObject();
+            ois.close();
+        }
+
+
+
+
+        if (!(new File(path).exists()))
+            new File(path).mkdir();
+
     }
 
 
     public String getAudio(String URL) throws IOException, InterruptedException {
         this.URL = URL;
+
+        //TODO rename this to downloadVideo()
         getVideo();
+
         path = convertVideo();
+
         return path;
 
     }
@@ -114,6 +150,18 @@ public class HostGetter {
 
         System.out.println(title);
         realTitle = title;
+
+        // add song to downloaded songs array
+        downloadedSongs.add(title);
+
+
+        //TODO Don't do this for every song, only when program is closing, but for now since we can kill it I'll write it every time
+
+        FileOutputStream fos = new FileOutputStream(indexDir);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(downloadedSongs);
+        oos.close();
+
         System.out.println("Download Complete ");
 
 

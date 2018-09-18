@@ -9,7 +9,7 @@ import java.net.Socket;
 
 
 public class Test {
-    public static void main(String[] args) throws IOException, InterruptedException, JavaLayerException {
+    public static void main(String[] args) throws IOException, InterruptedException, JavaLayerException, ClassNotFoundException {
 
         /* -------------- Server Code  -------------------------*/
         ServerSocket serverSocket = null;
@@ -52,7 +52,7 @@ public class Test {
                     break;
                 }
             }
-            
+
             System.out.println("Connection closed");
             serverSocket.close();
 

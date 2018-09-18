@@ -4,12 +4,14 @@
  */
 
 
+import java.io.IOException;
+
 // This class will hopefully interact directly with the app
 public class HostCatcher {
 
 
 
-    public void getUserInput(String userInput /*somehow get user message*/) {
+    public void getUserInput(String userInput /*somehow get user message*/) throws IOException, InterruptedException {
 
 
 
