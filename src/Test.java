@@ -1,21 +1,27 @@
 //TODO CONSIDER checking length of song before we add it to the playlist...at least without confirming
 import javazoom.jl.decoder.JavaLayerException;
 
+import javax.naming.Context;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
 
 public class Test {
     public static void main(String[] args) throws IOException, InterruptedException, JavaLayerException {
 
+        String songPath = "";
+
+        final int PORT = 6666;
+        final int DISCOVERY_PORT = 7777;
+
         /* -------------- Server Code  -------------------------*/
+
+        // server socket
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
         BufferedReader in = null;
-        String songPath = "";
 
         try {
             serverSocket = new ServerSocket(6666);
@@ -47,12 +53,14 @@ public class Test {
 
             while (true) {
                 inputLine = in.readLine();
-                System.out.println("FROM SOCKET: " + inputLine);
+
                 if (inputLine.equals("quit") || inputLine.equals("")) {
                     break;
                 }
+
+                System.out.println("FROM SOCKET: " + inputLine);
             }
-            
+
             System.out.println("Connection closed");
             serverSocket.close();
 
@@ -62,9 +70,9 @@ public class Test {
 
         /* ------------------- End of Receiving from Client ------- */
 
-
-//        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=-sUXMzkh-jI");
         songPath = tmp.getAudio(inputLine);
+
+//        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=-sUXMzkh-jI")
 
 
 //        String songPath = "/home/user/Desktop/tempMusic/ITS A LONG WAY TO THE TOP (IF YOU WANNA ROCK N ROLL) - AC DC.mp3";
@@ -74,4 +82,6 @@ public class Test {
 //        String nearestURL = tmp.getNearestResult("so long marianne");
 //        System.out.println(nearestURL);
     }
+
+
 }
