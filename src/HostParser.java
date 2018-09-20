@@ -20,9 +20,38 @@ public class HostParser {
     }
 
 
-    public static void parseSongInput(String userInput) {
+    public static String parseSongInput(String userInput) throws IOException, InterruptedException {
+
+        // it's a youtube URL
+        if(userInput.contains("https://www.youtube.com/watch?")) {
+            return userInput;
+        } else {
+            return getNearestResult(userInput);
+        }
+
+    }
+
+    public boolean checkIfAlreadyDownloaded(String URL) throws IOException {
+        String URLToGet = URL;
+
+        Process p = new ProcessBuilder("GET",
+                URLToGet).start();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String s;
+        while((s = in.readLine()) != null) {
+            if (s.contains("<title>"))
+                break;
+        }
 
 
+        String title = s.substring(s.indexOf("<title>") + 7, s.indexOf("</title>") -10);
+        title = title.replaceAll("&#39;", "'");
+
+
+        return (HostGetter.downloadedSongs.contains(title));
+
+        //TODO if user inputs some weird title/ part of a song title, have some way of checking those..
 
     }
 
