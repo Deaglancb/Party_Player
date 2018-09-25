@@ -9,97 +9,36 @@ import java.util.HashSet;
 public class HostGetter {
 
 
-    private String URL;
-    private String title = "";
-    private String path;
-    private String homeDir;
-    private String indexDir;
-    public String realTitle;
-    protected String indexFile = "";
+    private static String URL;
+    private static String title;
+    private static String songPath;
+    public static String realTitle;
     //TODO consider moving this outa here!
-    protected static HashSet<String> downloadedSongs;
 
-    // PYTHON SCRIPT LOCATION
-    private String cmd =
-                            "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
-//                            "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " ";
 
 
     public HostGetter() throws IOException, ClassNotFoundException {
-
-        // going to store music in the folder on user's desktop, if folder doesn't exist, create it
-        homeDir = System.getProperty("user.home");
-        path = homeDir + "/Desktop/tempMusic";
-
-
-        indexDir = path + "/songIndex";
-
-        if(!(new File(indexDir).exists())) {
-            new File(indexDir).createNewFile();
-            //TODO In case user deletes index file, check all other files in the directoy for mp3s and add them again
-            downloadedSongs = new HashSet<>();
-
-            FileOutputStream fos = new FileOutputStream(indexDir);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(downloadedSongs);
-            oos.close();
-
-
-        } else {
-            FileInputStream fis = new FileInputStream(indexDir);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            downloadedSongs = (HashSet<String>) ois.readObject();
-            ois.close();
-        }
-
-
-
-
-        if (!(new File(path).exists()))
-            new File(path).mkdir();
-
     }
 
 
-    public String getAudio(String URL) throws IOException, InterruptedException {
+    public void getAudio(String URL) throws IOException, InterruptedException {
         this.URL = URL;
-
         //TODO rename this to downloadVideo()
         getVideo();
-
-        path = convertVideo();
-
-        return path;
-
+        convertVideo();
     }
 
     public String convertVideo() throws IOException, InterruptedException {
 
-        char lastChar = title.toCharArray()[title.length()-1];
-        String tmpPath;
-
-        String tmpTitle = "";
-
         for(int i = 0; i < title.length(); i++) {
-            lastChar = title.charAt(i);
+            char lastChar = title.charAt(i);
             if (lastChar == '"' || lastChar == '\'' )
                 title = title.substring(0, i) + title.substring(i+1, title.length());
         }
 
 
-
-        tmpPath = path + "/" + title;
-        System.out.println( "           " + title);
-
-
-
-        String correctedPath = tmpPath;
-
-
-
-
-        String goFrom =  correctedPath + ".mp4";
-        String goTo = path + "/" + realTitle + ".mp3";
+        String goFrom =  songPath + "/"+ title + ".mp4";
+        String goTo = songPath + "/" + realTitle + ".mp3";
 
 
         System.out.println(goFrom);
@@ -123,19 +62,28 @@ public class HostGetter {
         }
         in.close();
 
+
+        // add song to downloaded songs array
+        HostOrganiser.localLibraryMap.put(realTitle, new File(goTo));
+
         System.out.println("Conversion compete");
         File toDelete = new File(goFrom);
         toDelete.delete();
 
-        path = goTo;
         return "";
     }
 
-    public String getVideo() throws IOException, InterruptedException {
+    public static String getVideo() throws IOException, InterruptedException {
 
 
+        // PYTHON SCRIPT LOCATION
+        String cmd =
+                "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
+//                          "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " ";
 
-        String cmd = this.cmd + URL + " " + path;
+        String pathToDownloadTo = HostInitialize.songPath;
+
+        cmd = cmd + URL + " " + pathToDownloadTo;
 
         Process p = Runtime.getRuntime().exec(cmd);
 
@@ -151,16 +99,7 @@ public class HostGetter {
         System.out.println(title);
         realTitle = title;
 
-        // add song to downloaded songs array
-        downloadedSongs.add(title);
-
-
-        //TODO Don't do this for every song, only when program is closing, but for now since we can kill it I'll write it every time
-
-        FileOutputStream fos = new FileOutputStream(indexDir);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(downloadedSongs);
-        oos.close();
+        songPath = pathToDownloadTo;
 
         System.out.println("Download Complete ");
 

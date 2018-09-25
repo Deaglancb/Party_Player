@@ -102,12 +102,26 @@ public class HostPlayer{
     JButton pause = new JButton("Pause");
     JButton next = new JButton("Next");
     JLabel songTitle = new JLabel("");
+    JTextField libraryPath = new JTextField();
+    JButton setPath = new JButton("Set");
+
+
 
 
     JFrame frame = new JFrame("Party Player");
 
     HostPlayer() {
         buildGUI();
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                try {
+                    HostInitialize.closeProgram();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void setMusic(String src) throws IOException, JavaLayerException {
@@ -156,6 +170,8 @@ public class HostPlayer{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridBagLayout());
 
+
+
         play.setFont(new Font("TimesRoman", Font.PLAIN, 100));
         pause.setFont(new Font("TimesRoman", Font.PLAIN, 100));
         next.setFont(new Font("TimesRoman", Font.PLAIN, 100));
@@ -183,6 +199,28 @@ public class HostPlayer{
         frame.add(songTitle,gbc);
 
 
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        libraryPath.setVisible(true);
+//        libraryPath.setBounds(50,150,200,30);
+        frame.add(libraryPath,gbc);
+        gbc.gridx = 3;
+        setPath.setFont(new Font("TimesRoman", Font.PLAIN, 100));
+        setPath.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setLibraryPath();
+            }
+        });
+        frame.add(setPath,gbc);
+
+
+    }
+
+    private void setLibraryPath() {
+        String libraryPathStr = libraryPath.getText();
+
+        HostOrganiser.importLibrary(libraryPathStr);
     }
 
     private void playButtonPressed() throws JavaLayerException {
@@ -226,4 +264,6 @@ public class HostPlayer{
     private void nextButtonPressed() {
 
     }
+
+
 }

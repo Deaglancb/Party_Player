@@ -49,7 +49,9 @@ public class HostParser {
         title = title.replaceAll("&#39;", "'");
 
 
-        return (HostGetter.downloadedSongs.contains(title));
+        System.out.println(title);
+        System.out.println(HostOrganiser.localLibraryMap.keySet());
+        return (HostOrganiser.localLibraryMap.containsKey(title));
 
         //TODO if user inputs some weird title/ part of a song title, have some way of checking those..
 
