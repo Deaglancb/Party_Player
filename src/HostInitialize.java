@@ -1,3 +1,5 @@
+import javazoom.jl.decoder.JavaLayerException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,9 @@ public class HostInitialize {
     protected static String songPath;
 
     public HostInitialize() throws IOException, ClassNotFoundException {
+
+
+
         loadFiles();
         verifyLocalLibrary();
         verifyPlaylist();
@@ -23,7 +28,36 @@ public class HostInitialize {
         HostOrganiser organiser = new HostOrganiser();
         HostGetter getter = new HostGetter();
         HostParser parser = new HostParser();
+        HostPlayerGUI GUI = new HostPlayerGUI();
         HostPlayer player = new HostPlayer();
+
+        File file = new File("../playlist.txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        ArrayList<String> searchDis = new ArrayList<>();
+
+
+        String st;
+        while ((st = br.readLine()) != null) {
+            String hmm = st;
+            hmm = hmm.replace("&amp;", "&");
+            hmm = hmm.replace("live", "");
+            hmm = hmm.replace("Live", "");
+            if (!hmm.equals(""))
+                searchDis.add(hmm);
+        }
+
+
+        for(String str:searchDis) {
+            try {
+                String song = parser.parseSongInput(str + " audio");
+//                System.out.println(str);
+                getter.getAudio(song);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
@@ -80,7 +114,7 @@ public class HostInitialize {
         if (!playList.exists()) {
             playList.createNewFile();
             //TODO In case user deletes index file, check all other files in the directoy for mp3s and add them again
-            HostOrganiser.playList = new HashMap<>();
+            HostOrganiser.playList = new ArrayList<>();
 
             FileOutputStream fos = new FileOutputStream(playList);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -90,7 +124,7 @@ public class HostInitialize {
         } else {
             FileInputStream fis = new FileInputStream(playList);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            HostOrganiser.playList = (HashMap<String, File>) ois.readObject();
+            HostOrganiser.playList = (ArrayList<String>) ois.readObject();
             ois.close();
         }
 
@@ -100,9 +134,9 @@ public class HostInitialize {
     public static void verifyPlaylist() {
         ArrayList<String> songsToRemove = new ArrayList<>();
 
-        for (HashMap.Entry<String, File> entry : HostOrganiser.playList.entrySet()) {
-            String title = entry.getKey();
 
+
+        for(String title : HostOrganiser.playList) {
             if(!HostOrganiser.localLibraryMap.containsKey(title))
                 songsToRemove.add(title);
         }

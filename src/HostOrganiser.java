@@ -12,7 +12,7 @@ import java.util.Queue;
 public class HostOrganiser {
 
 
-    protected static HashMap<String, File> playList;
+    protected static ArrayList<String> playList;
     protected static HashMap<String, File> localLibraryMap;
 
 
@@ -25,8 +25,8 @@ public class HostOrganiser {
     public void addToPlayList(String songTitle, File songPath) {
 
         // if playlist doesn't alreayd contain the song, add to end
-        if(!playList.containsKey(songTitle))
-            playList.put(songTitle, songPath);
+        if(!playList.contains(songTitle))
+            playList.add(songTitle);
 
         //TODO add in responce to app, 'this is already on playlist!'
 

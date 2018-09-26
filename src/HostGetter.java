@@ -32,7 +32,7 @@ public class HostGetter {
 
         for(int i = 0; i < title.length(); i++) {
             char lastChar = title.charAt(i);
-            if (lastChar == '"' || lastChar == '\'' )
+            if (lastChar == '"' || lastChar == '\'' || lastChar == ':' || lastChar == '\'' || lastChar == '.' || lastChar == '/' || lastChar == ',' || lastChar == '/')
                 title = title.substring(0, i) + title.substring(i+1, title.length());
         }
 
@@ -44,31 +44,36 @@ public class HostGetter {
         System.out.println(goFrom);
         System.out.println(goTo);
 
-        System.out.println("converting audio");
-        Process p = new ProcessBuilder("ffmpeg",
-                "-i",
-                goFrom,
-                goTo).start();
+        File videoFile = new File(goFrom);
+        File audioFile = new File(goTo);
 
-        p.waitFor();
+        videoFile.renameTo(audioFile);
 
-        //TODO remove, debug
-
-        String line = "";
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(p.getErrorStream()));
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
-        }
-        in.close();
+//        System.out.println("converting audio");
+//        Process p = new ProcessBuilder("ffmpeg",
+//                "-i",
+//                goFrom,
+//                goTo).start();
+//
+//        p.waitFor();
+//
+//        //TODO remove, debug
+//
+//        String line = "";
+//        BufferedReader in = new BufferedReader(
+//                new InputStreamReader(p.getErrorStream()));
+//        while ((line = in.readLine()) != null) {
+//            System.out.println(line);
+//        }
+//        in.close();
 
 
         // add song to downloaded songs array
         HostOrganiser.localLibraryMap.put(realTitle, new File(goTo));
 
         System.out.println("Conversion compete");
-        File toDelete = new File(goFrom);
-        toDelete.delete();
+//        File toDelete = new File(goFrom);
+//        toDelete.delete();
 
         return "";
     }
@@ -78,7 +83,7 @@ public class HostGetter {
 
         // PYTHON SCRIPT LOCATION
         String cmd =
-                "python3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
+                "ipython3 /home/deaglan/workspace/Party_Player/src/TubeDownloader.py" + " ";
 //                          "python3 /home/user/code/party_player/Party_Player/src/TubeDownloader.py" + " ";
 
         String pathToDownloadTo = HostInitialize.songPath;

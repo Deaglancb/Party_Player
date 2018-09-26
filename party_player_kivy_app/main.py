@@ -54,7 +54,7 @@ class RootWidget(Widget):
 
     def get_broadcast_addr(self):
         local_ip = self.get_local_ip()
-        addr = ipaddress.ip_interface(local_ip + "\24")
+        addr = ipaddress.ip_interface(local_ip ) #removed   '  + "\24" '
         return addr.network.broadcast_address
 
     def get_local_ip(self):
