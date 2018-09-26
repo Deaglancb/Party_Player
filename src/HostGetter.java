@@ -21,14 +21,16 @@ public class HostGetter {
     }
 
 
-    public void getAudio(String URL) throws IOException, InterruptedException {
-        this.URL = URL;
+    public static String getAudio(String songURL) throws IOException, InterruptedException {
+        URL = songURL;
         //TODO rename this to downloadVideo()
         getVideo();
-        convertVideo();
+        String toReturn = convertVideo();
+
+        return toReturn;
     }
 
-    public String convertVideo() throws IOException, InterruptedException {
+    public static String convertVideo() throws IOException, InterruptedException {
 
         for(int i = 0; i < title.length(); i++) {
             char lastChar = title.charAt(i);
@@ -47,15 +49,15 @@ public class HostGetter {
         File videoFile = new File(goFrom);
         File audioFile = new File(goTo);
 
-        videoFile.renameTo(audioFile);
+//        videoFile.renameTo(audioFile);
 
-//        System.out.println("converting audio");
-//        Process p = new ProcessBuilder("ffmpeg",
-//                "-i",
-//                goFrom,
-//                goTo).start();
-//
-//        p.waitFor();
+        System.out.println("converting audio");
+        Process p = new ProcessBuilder("ffmpeg",
+                "-i",
+                goFrom,
+                goTo).start();
+
+        p.waitFor();
 //
 //        //TODO remove, debug
 //
@@ -72,10 +74,10 @@ public class HostGetter {
         HostOrganiser.localLibraryMap.put(realTitle, new File(goTo));
 
         System.out.println("Conversion compete");
-//        File toDelete = new File(goFrom);
-//        toDelete.delete();
+        File toDelete = new File(goFrom);
+        toDelete.delete();
 
-        return "";
+        return goTo;
     }
 
     public static String getVideo() throws IOException, InterruptedException {

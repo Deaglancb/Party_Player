@@ -4,6 +4,8 @@
  */
 
 
+import javazoom.jl.decoder.JavaLayerException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,6 +50,12 @@ public class HostCatcher {
             while (true) {
                 inputLine = in.readLine();
                 System.out.println("FROM SOCKET: " + inputLine);
+
+//TODO FIX THIS STUFF
+                HostPlayer.setMusic(HostGetter.getAudio(HostParser.parseSongInput(inputLine)));
+//
+
+
                 if (inputLine.equals("quit") || inputLine.equals("")) {
                     break;
                 }
@@ -59,6 +67,10 @@ public class HostCatcher {
         } catch (NullPointerException ex) {
             System.out.println(ex);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JavaLayerException e) {
             e.printStackTrace();
         }
 

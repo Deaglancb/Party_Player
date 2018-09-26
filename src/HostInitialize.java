@@ -28,35 +28,43 @@ public class HostInitialize {
         HostOrganiser organiser = new HostOrganiser();
         HostGetter getter = new HostGetter();
         HostParser parser = new HostParser();
-        HostPlayerGUI GUI = new HostPlayerGUI();
         HostPlayer player = new HostPlayer();
+        HostPlayerGUI GUI = new HostPlayerGUI();
 
-        File file = new File("../playlist.txt");
+//
+//        String songPath = "/home/deaglan/Desktop/tempMusic/IT'S A LONG WAY TO THE TOP (IF YOU WANNA ROCK 'N' ROLL) - AC DC.mp3";
+//        try {
+//            player.setMusic(songPath);
+//        } catch (JavaLayerException e) {
+//            e.printStackTrace();
+//        }
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        ArrayList<String> searchDis = new ArrayList<>();
-
-
-        String st;
-        while ((st = br.readLine()) != null) {
-            String hmm = st;
-            hmm = hmm.replace("&amp;", "&");
-            hmm = hmm.replace("live", "");
-            hmm = hmm.replace("Live", "");
-            if (!hmm.equals(""))
-                searchDis.add(hmm);
-        }
+//        File file = new File("../playlist.txt");
+//
+//        BufferedReader br = new BufferedReader(new FileReader(file));
+//        ArrayList<String> searchDis = new ArrayList<>();
 
 
-        for(String str:searchDis) {
-            try {
-                String song = parser.parseSongInput(str + " audio");
-//                System.out.println(str);
-                getter.getAudio(song);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        String st;
+//        while ((st = br.readLine()) != null) {
+//            String hmm = st;
+//            hmm = hmm.replace("&amp;", "&");
+//            hmm = hmm.replace("live", "");
+//            hmm = hmm.replace("Live", "");
+//            if (!hmm.equals(""))
+//                searchDis.add(hmm);
+//        }
+//
+//
+//        for(String str:searchDis) {
+//            try {
+//                String song = parser.parseSongInput(str + " audio");
+////                System.out.println(str);
+//                getter.getAudio(song);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
     }
