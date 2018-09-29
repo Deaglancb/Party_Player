@@ -18,10 +18,10 @@ import java.io.*;
 public class HostPlayer{
 
     protected static volatile boolean shouldBePlaying = false;
-    Thread currentSong;
+    static Thread currentSong;
 
 
-    private class Song extends Thread {
+    private static class Song extends Thread {
 
         private AdvancedPlayer player = null;
         boolean running = false;
@@ -31,6 +31,7 @@ public class HostPlayer{
 
         Song(String src) throws JavaLayerException {
             filePath = src;
+            System.out.println(src);
             FactoryRegistry.systemRegistry().createAudioDevice();
         }
 
@@ -86,13 +87,12 @@ public class HostPlayer{
         }
     }
 
-    HostPlayer() {
+    HostPlayer() { }
 
-    }
+    public static void setMusic(String src) throws JavaLayerException {
 
-    public void setMusic(String src) throws IOException, JavaLayerException {
-
-        currentSong = new Song(src);//new Thread(new Song(src));
+        System.out.println(src);
+        currentSong = new Thread(new Song(src));
         HostPlayerGUI.setTitle("Leonard Cohen");
         currentSong.start();
 

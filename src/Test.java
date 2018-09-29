@@ -60,7 +60,7 @@ public class Test {
 //                System.out.println("FROM SOCKET: " + inputLine);
 //            }
 
-//        new HostInitialize();
+        new HostInitialize();
         new HostCatcher();
 
         /* -------------- Server Code  -------------------------*/
@@ -80,8 +80,6 @@ public class Test {
 //        String songPath = tmp.getAudio("https://www.youtube.com/watch?v=-sUXMzkh-jI")
 
 
-//        String songPath = "/home/user/Desktop/tempMusic/ITS A LONG WAY TO THE TOP (IF YOU WANNA ROCK N ROLL) - AC DC.mp3";
-//        anotherTmp.setMusic(songPath);
 
 //        HostParser tmp =  new HostParser();
 //        String nearestURL = tmp.getNearestResult("so long marianne");
