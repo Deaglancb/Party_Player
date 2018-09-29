@@ -20,20 +20,7 @@ class RootWidget(Widget):
     def __init__(self):
         super(RootWidget, self).__init__()
 
-        self.bcast_addr = self.get_broadcast_addr()
 
-        if self.bcast_addr:
-            try:
-                sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-                print("Broadcast socket created...")
-
-                sock.bind((HOST, PORT))
-                print("Socket bound...")
-
-            except socket.error as e:
-                print(e)
 
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -54,7 +41,7 @@ class RootWidget(Widget):
 
     def get_broadcast_addr(self):
         local_ip = self.get_local_ip()
-        addr = ipaddress.ip_interface(local_ip ) #removed   '  + "\24" '
+        addr = ipaddress.ip_interface("{}/24".format(local_ip))
         return addr.network.broadcast_address
 
     def get_local_ip(self):
