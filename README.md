@@ -3,6 +3,8 @@
 
 Beginnings of distributed playlist & music player
 
+Very much so a work in progress in an effort to make a proof of concept
+
 Intention:
            
            users using an app on their phone can link to a host computer the program is running on, 
