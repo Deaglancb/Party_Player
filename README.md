@@ -24,9 +24,12 @@ Thus far:
 
 Reliant on 
 
-JZoom, Java Layer 1.0.1, download, put jar in project library
+JZoom, Java Layer 1.0.1
 http://www.javazoom.net/javalayer/javalayer.html
 
+
+Python3
+https://www.python.org/
 
 Pytube
 https://python-pytube.readthedocs.io/en/latest/#
