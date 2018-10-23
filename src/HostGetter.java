@@ -15,7 +15,8 @@ public class HostGetter {
     public static String realTitle;
     //TODO consider moving this outa here!
 
-
+//TODO Consider having another thread checking the size of downloading mp4s,if the size hasn't increaed for 20-30secods, download has stalled, which seems to happen sometimes
+    // if this is the case, we want to stop and restart the download
 
     public HostGetter() throws IOException, ClassNotFoundException {
     }
@@ -34,7 +35,7 @@ public class HostGetter {
 
         for(int i = 0; i < title.length(); i++) {
             char lastChar = title.charAt(i);
-            if (lastChar == '"' || lastChar == '\'' || lastChar == ':' || lastChar == '\'' || lastChar == '.' || lastChar == '/' || lastChar == ',' || lastChar == '/')
+            if (lastChar == '"' || lastChar == ',' || lastChar == ':' || lastChar == '\'' || lastChar == '.' || lastChar == '/' || lastChar == ',' || lastChar == '/' || lastChar == '%')
                 title = title.substring(0, i) + title.substring(i+1, title.length());
         }
 

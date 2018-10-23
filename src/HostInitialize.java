@@ -39,33 +39,35 @@ public class HostInitialize {
 //            e.printStackTrace();
 //        }
 
-//        File file = new File("../playlist.txt");
-//
-//        BufferedReader br = new BufferedReader(new FileReader(file));
-//        ArrayList<String> searchDis = new ArrayList<>();
+
+     /*
+        // PERSONAL THING - downloading music playlist, gotten from spotify
+        File file = new File("../somePlayList.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        ArrayList<String> searchDis = new ArrayList<>();
 
 
-//        String st;
-//        while ((st = br.readLine()) != null) {
-//            String hmm = st;
-//            hmm = hmm.replace("&amp;", "&");
-//            hmm = hmm.replace("live", "");
-//            hmm = hmm.replace("Live", "");
-//            if (!hmm.equals(""))
-//                searchDis.add(hmm);
-//        }
-//
-//
-//        for(String str:searchDis) {
-//            try {
-//                String song = parser.parseSongInput(str + " audio");
-////                System.out.println(str);
-//                getter.getAudio(song);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        String st;
+        while ((st = br.readLine()) != null) {
+            String hmm = st;
+            hmm = hmm.replace("&amp;", "&");
+            hmm = hmm.replace("live", "");
+            hmm = hmm.replace("Live", "");
+            if (!hmm.equals(""))
+                searchDis.add(hmm);
+        }
 
+
+        for(String str:searchDis) {
+            try {
+                String song = parser.parseSongInput(str + " audio");
+                System.out.println(str);
+                getter.getAudio(song);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    */
 
     }
 
